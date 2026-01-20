@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Insurance Premium Predictor</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: "Poppins", "Segoe UI", sans-serif;
+            background: linear-gradient(-45deg, #667eea, #764ba2, #43cea2, #185a9d);
+            background-size: 400% 400%;
+            animation: gradientBG 12s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .wrapper {
+            width: 900px;
+            height: auto;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(14px);
+            border-radius: 20px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* LEFT PANEL */
+        .left-panel {
+            width: 38%;
+            padding: 40px;
+            color: #fff;
+            background: linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.1));
+        }
+
+        .left-panel h1 {
+            font-size: 34px;
+            margin-bottom: 15px;
+        }
+
+        .left-panel p {
+            font-size: 15px;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        .highlight-box {
+            margin-top: 30px;
+            padding: 18px;
+            border-radius: 14px;
+            background: rgba(255,255,255,0.18);
+        }
+
+        .highlight-box h3 {
+            margin: 0 0 8px 0;
+            font-size: 18px;
+        }
+
+        /* RIGHT PANEL */
+        .right-panel {
+            width: 62%;
+            background: #ffffff;
+            padding: 30px 35px;
+            overflow-y: auto;
+        }
+
+        .form-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .section {
+            margin-bottom: 18px;
+        }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .row {
+            display: flex;
+            gap: 12px;
+        }
+
+        .field {
+            flex: 1;
+            margin-bottom: 12px;
+        }
+
+        label {
+            display: block;
+            font-size: 12px;
+            color: #555;
+            margin-bottom: 4px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 9px 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.15);
+        }
+
+        button {
+            width: 100%;
+            margin-top: 18px;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.45);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 30px rgba(102, 126, 234, 0.6);
+        }
+
+        .result {
+            margin-top: 22px;
+            padding: 20px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #f5f7fa, #e4e9f2);
+            text-align: center;
+            border-left: 6px solid #667eea;
+        }
+
+        .result span {
+            display: block;
+            font-size: 13px;
+            color: #555;
+        }
+
+        .result strong {
+            display: block;
+            margin-top: 6px;
+            font-size: 30px;
+            color: #333;
+        }
+
+        footer {
+            margin-top: 15px;
+            text-align: center;
+            font-size: 11px;
+            color: #777;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="wrapper">
+
+    <!-- LEFT PANEL -->
+    <div class="left-panel">
+        <h1>💡 Smart Insurance</h1>
+        <p>
+            Predict health insurance premiums using an AI-powered
+            machine learning model trained on real-world data.
+        </p>
+
+        <div class="highlight-box">
+            <h3>✨ What this does</h3>
+            <p>
+                Instantly estimates insurance charges based on
+                health, lifestyle, and coverage choices.
+            </p>
+        </div>
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="right-panel">
+
+        <div class="form-title">Insurance Details</div>
+
+        <form method="POST">
+
+            <div class="section">
+                <div class="section-title">Personal</div>
+                <div class="row">
+                    <div class="field">
+                        <label>Age</label>
+                        <input type="number" name="age" required>
+                    </div>
+                    <div class="field">
+                        <label>Gender</label>
+                        <select name="gender">
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="field">
+                        <label>BMI</label>
+                        <input type="number" step="0.1" name="bmi" required>
+                    </div>
+                    <div class="field">
+                        <label>Children</label>
+                        <input type="number" name="children" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Health</div>
+                <div class="row">
+                    <div class="field">
+                        <label>Smoker</label>
+                        <select name="smoker">
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label>Exercise Frequency</label>
+                        <select name="exercise_frequency">
+                            <option value="Never">Never</option>
+                            <option value="Occasionally">Occasionally</option>
+                            <option value="Rarely">Rarely</option>
+                            <option value="Frequently">Frequently</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="field">
+                        <label>Medical History</label>
+                        <select name="medical_history">
+                            <option value="">None</option>
+                            <option value="Diabetes">Diabetes</option>
+                            <option value="High blood pressure">High blood pressure</option>
+                            <option value="Heart disease">Heart disease</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label>Family Medical History</label>
+                        <select name="family_medical_history">
+                            <option value="">None</option>
+                            <option value="High blood pressure">High blood pressure</option>
+                            <option value="Diabetes">Diabetes</option>
+                            <option value="Heart disease">Heart disease</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Insurance</div>
+                <div class="row">
+                    <div class="field">
+                        <label>Region</label>
+                        <select name="region">
+                            <option value="southeast">Southeast</option>
+                            <option value="northwest">Northwest</option>
+                            <option value="southwest">Southwest</option>
+                            <option value="northeast">Northeast</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label>Occupation</label>
+                        <select name="occupation">
+                            <option value="">None</option>
+                            <option value="Blue collar">Blue collar</option>
+                            <option value="White collar">White collar</option>
+                            <option value="Student">Student</option>
+                            <option value="Unemployed">Unemployed</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>Coverage Level</label>
+                    <select name="coverage_level">
+                        <option value="Basic">Basic</option>
+                        <option value="Standard">Standard</option>
+                        <option value="Premium">Premium</option>
+                    </select>
+                </div>
+            </div>
+
+            <button type="submit">🚀 Predict Premium</button>
+        </form>
+
+        {% if prediction %}
+        <div class="result">
+            <span>Predicted Insurance Charges</span>
+            <strong>{{ prediction | round(2) }}</strong>
+        </div>
+        {% endif %}
+
+        <footer>
+            Machine Learning Project • Insurance Premium Prediction
+        </footer>
+
+    </div>
+</div>
+
+</body>
+</html>
